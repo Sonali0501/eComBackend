@@ -18,7 +18,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"name\": \"product 2\",\n    \"description\": \"product 2 description\",\n    \"price\": 100,\n    \"variants\": [\n        {\n            \"name\": \"product 2 variant 1\",\n            \"sku\": \"SKU-1\",\n            \"additionalCost\": 15,\n            \"stockCount\": 10\n        },\n        {\n            \"name\": \"product 2 variant 2\",\n            \"sku\": \"SKU-3\",\n            \"additionalCost\": 16,\n            \"stockCount\": 14\n        }\n    ]\n}",
+					"raw": "{\n    \"name\": \"product 1\",\n    \"description\": \"product 1 description\",\n    \"price\": 100,\n    \"variants\": [\n        {\n            \"name\": \"product 1 variant 1\",\n            \"sku\": \"SKU-001\",\n            \"additionalCost\": 15,\n            \"stockCount\": 10\n        },\n        {\n            \"name\": \"product 1 variant 2\",\n            \"sku\": \"SKU-003\",\n            \"additionalCost\": 16,\n            \"stockCount\": 14\n        }\n    ]\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -53,7 +53,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"id\": 2,\n    \"name\": \"new product 2\",\n    \"price\": 140,\n    \"variants\": [\n        {\n            \"id\": 2,\n            \"productId\": 1,\n            \"name\": \"product 2 variant 1\",\n            \"sku\": \"SKU-1\",\n            \"additionalCost\": 5,\n            \"stockCount\": 1\n        },\n        {\n            \"name\": \"product 2 new variant 1\",\n            \"sku\": \"SKU-30\",\n            \"additionalCost\": 60,\n            \"stockCount\": 4\n        }\n    ]\n}",
+					"raw": "{\n    \"id\": 1,\n    \"name\": \"updated product 1\",\n    \"price\": 140,\n    \"variants\": [\n        {\n            \"id\": 2,\n            \"productId\": 1,\n            \"additionalCost\": 5,\n            \"stockCount\": 50\n        },\n        {\n            \"name\": \"product 1 new variant 1\",\n            \"sku\": \"SKU-030\",\n            \"additionalCost\": 60,\n            \"stockCount\": 4\n        }\n    ]\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -134,7 +134,7 @@
 					}
 				},
 				"url": {
-					"raw": "{{baseURL}}/api/v1/product/?id=30",
+					"raw": "{{baseURL}}/api/v1/product/?id=2",
 					"host": [
 						"{{baseURL}}"
 					],
@@ -147,7 +147,7 @@
 					"query": [
 						{
 							"key": "id",
-							"value": "30"
+							"value": "2"
 						}
 					]
 				}
