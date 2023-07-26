@@ -6,6 +6,13 @@ import { ServiceResponse } from '@/interfaces/service.interface';
 class ProductController {
   private productService = new ProductService();
 
+  public getProductList = async (req: Request, res: CustomResponse): Promise<CustomResponse> => {
+    const search = req.query.search?.toString() || null;
+    const resp: ServiceResponse = await this.productService.getProductList(search);
+    if (!resp?.ok) return res.invalid({ code: 400, msg: resp.err });
+    return res.success({ data: resp.data });
+  };
+
   public addProduct = async (req: Request, res: CustomResponse): Promise<CustomResponse> => {
     const resp: ServiceResponse = await this.productService.addProduct(req.body);
     if (!resp?.ok) return res.invalid({ code: 400, msg: resp.err });

@@ -4,6 +4,25 @@ import { Product } from '@database/entity/product';
 import { Variant } from '@database/entity/variant';
 
 export default class ProductModel {
+  public async getProductList(search?: string) {
+    try {
+      const query = AppDataSource.getRepository(Product)
+        .createQueryBuilder('products')
+        .leftJoinAndSelect('products.variants', 'variants');
+
+      if (search?.length) {
+        query.where('products.name LIKE :search OR products.description LIKE :search OR variants.name LIKE :search', {
+          search: `%${search}%`,
+        });
+      }
+      const data = await query.getMany();
+      return data;
+    } catch (err) {
+      console.log(err);
+      return;
+    }
+  }
+
   public async addProduct(product: DeepPartial<Product>, variants?: DeepPartial<Variant>[]) {
     try {
       const resp = await AppDataSource.transaction(async transManager => {

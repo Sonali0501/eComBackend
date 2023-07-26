@@ -4,7 +4,7 @@ import ProductController from '@controllers/product/product.controller';
 import authMiddleware from '@middlewares/auth.middleware';
 import { asyncResponseWrapper } from '@/helpers';
 import { validateRequestBody, validateRequestQueries } from '@middlewares/validation.middleware';
-import { AddProductSchemaZ, UpdateProductSchemaZ } from '../controllers/product/productSchema';
+import { AddProductSchemaZ, GetProductListSchemaZ, UpdateProductSchemaZ } from '../controllers/product/productSchema';
 
 class ProductRoutes implements Routes {
   public path = '/api/v1/product';
@@ -18,6 +18,11 @@ class ProductRoutes implements Routes {
   private initializeRoutes() {
     this.router
       .route(`${this.path}/`)
+      .get(
+        authMiddleware,
+        validateRequestQueries(GetProductListSchemaZ),
+        asyncResponseWrapper(this.productController.getProductList),
+      )
       .post(
         authMiddleware,
         validateRequestBody(AddProductSchemaZ),

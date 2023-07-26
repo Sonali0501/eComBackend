@@ -34,5 +34,10 @@ export const UpdateProductSchemaZ = z.object({
     .optional(),
 });
 
+export const GetProductListSchemaZ = z.object({
+  search: z.string().optional(),
+});
+
 export type AddProductSchema = z.infer<typeof AddProductSchemaZ>;
 export type UpdateProductSchema = z.infer<typeof UpdateProductSchemaZ>;
+export type GetProductListSchema = z.infer<typeof GetProductListSchemaZ>;

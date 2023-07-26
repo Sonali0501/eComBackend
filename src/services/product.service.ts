@@ -5,6 +5,14 @@ import { ServiceResponse } from '@/interfaces/service.interface';
 class ProductService {
   private productModel = new ProductModel();
 
+  public async getProductList(search?: string): Promise<ServiceResponse> {
+    const data = await this.productModel.getProductList(search);
+    return {
+      ok: true,
+      data: data,
+    };
+  }
+
   public async addProduct(product: AddProductSchema): Promise<ServiceResponse> {
     const variants = product.variants;
     delete product.variants;
