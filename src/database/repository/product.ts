@@ -27,4 +27,68 @@ export default class ProductModel {
       return;
     }
   }
+
+  public async updateProduct(
+    productId: number,
+    productUpdateData?: DeepPartial<Product>,
+    variantsUpdateData?: DeepPartial<Variant>[],
+  ) {
+    try {
+      const resp = await AppDataSource.transaction(async transManager => {
+        const updatedProduct = await transManager
+          .getRepository(Product)
+          .createQueryBuilder('products')
+          .update('products')
+          .set(productUpdateData)
+          .where({ id: productId })
+          .execute();
+
+        if (variantsUpdateData?.length) {
+          const variantRepo = transManager.getRepository(Variant);
+          const newVariants = [];
+          for (let variant of variantsUpdateData) {
+            const variantId = variant.id;
+            if (variantId) {
+              delete variant.id;
+              delete variant.productId;
+              const updatedVariant = await variantRepo
+                .createQueryBuilder('variants')
+                .update('variants')
+                .set(variant)
+                .where({ id: variantId })
+                .andWhere({ productId: productId })
+                .execute();
+            } else {
+              newVariants.push({ ...variant, productId });
+            }
+          }
+
+          const variantEntities = variantRepo.create(newVariants);
+          const savedVariants = await variantRepo.save(variantEntities);
+        }
+
+        return updatedProduct;
+      });
+      return resp;
+    } catch (err) {
+      console.log(err);
+      return;
+    }
+  }
+
+  public async getProductAndVariantIds(productId: number) {
+    try {
+      const data = await AppDataSource.getRepository(Product)
+        .createQueryBuilder('products')
+        .where({ id: productId })
+        .leftJoin('products.variants', 'variants')
+        .select(['products'])
+        .addSelect(['variants.id'])
+        .getOne();
+      return data;
+    } catch (err) {
+      console.log(err);
+      return;
+    }
+  }
 }

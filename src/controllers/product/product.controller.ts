@@ -11,6 +11,12 @@ class ProductController {
     if (!resp?.ok) return res.invalid({ code: 400, msg: resp.err });
     return res.success({ data: resp.data });
   };
+
+  public updateProduct = async (req: Request, res: CustomResponse): Promise<CustomResponse> => {
+    const resp: ServiceResponse = await this.productService.updateProduct(req.body);
+    if (!resp?.ok) return res.invalid({ code: 400, msg: resp.err });
+    return res.success({ data: resp.data });
+  };
 }
 
 export default ProductController;

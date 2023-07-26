@@ -17,4 +17,22 @@ export const AddProductSchemaZ = ProductSchemaZ.extend({
   variants: z.array(VariantSchemaZ).optional(),
 });
 
+export const UpdateProductSchemaZ = z.object({
+  id: z.number(),
+  name: z.string().optional(),
+  description: z.string().optional(),
+  price: z.number().optional(),
+  variants: z
+    .array(
+      z.object({
+        id: z.number().optional(),
+        sku: z.string().optional(),
+        stockCount: z.number().optional(),
+        additionalCost: z.number().optional(),
+      }),
+    )
+    .optional(),
+});
+
 export type AddProductSchema = z.infer<typeof AddProductSchemaZ>;
+export type UpdateProductSchema = z.infer<typeof UpdateProductSchemaZ>;
