@@ -4,7 +4,12 @@ import ProductController from '@controllers/product/product.controller';
 import authMiddleware from '@middlewares/auth.middleware';
 import { asyncResponseWrapper } from '@/helpers';
 import { validateRequestBody, validateRequestQueries } from '@middlewares/validation.middleware';
-import { AddProductSchemaZ, GetProductListSchemaZ, UpdateProductSchemaZ } from '../controllers/product/productSchema';
+import {
+  AddProductSchemaZ,
+  DeleteProductSchemaZ,
+  GetProductListSchemaZ,
+  UpdateProductSchemaZ,
+} from '../controllers/product/productSchema';
 
 class ProductRoutes implements Routes {
   public path = '/api/v1/product';
@@ -32,6 +37,11 @@ class ProductRoutes implements Routes {
         authMiddleware,
         validateRequestBody(UpdateProductSchemaZ),
         asyncResponseWrapper(this.productController.updateProduct),
+      )
+      .delete(
+        authMiddleware,
+        validateRequestQueries(DeleteProductSchemaZ),
+        asyncResponseWrapper(this.productController.deleteProduct),
       );
   }
 }

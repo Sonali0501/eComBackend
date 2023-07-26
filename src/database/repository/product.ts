@@ -110,4 +110,14 @@ export default class ProductModel {
       return;
     }
   }
+
+  public async deleteProduct(productId: number) {
+    try {
+      const resp = await AppDataSource.getRepository(Product).delete({ id: productId });
+      return resp;
+    } catch (err) {
+      console.log(err);
+      return;
+    }
+  }
 }

@@ -70,6 +70,22 @@ class ProductService {
       },
     };
   }
+
+  public async deleteProduct(productId: number): Promise<ServiceResponse> {
+    const deleteResp = await this.productModel.deleteProduct(productId);
+    if (!deleteResp)
+      return {
+        ok: false,
+        err: 'Failed to delete product',
+      };
+
+    return {
+      ok: true,
+      data: {
+        message: 'successfully deleted product',
+      },
+    };
+  }
 }
 
 export default ProductService;

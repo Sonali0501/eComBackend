@@ -38,6 +38,9 @@ export const GetProductListSchemaZ = z.object({
   search: z.string().optional(),
 });
 
+export const DeleteProductSchemaZ = z.object({
+  id: z.string(),
+});
+
 export type AddProductSchema = z.infer<typeof AddProductSchemaZ>;
 export type UpdateProductSchema = z.infer<typeof UpdateProductSchemaZ>;
-export type GetProductListSchema = z.infer<typeof GetProductListSchemaZ>;

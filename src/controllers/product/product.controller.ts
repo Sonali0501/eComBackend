@@ -24,6 +24,13 @@ class ProductController {
     if (!resp?.ok) return res.invalid({ code: 400, msg: resp.err });
     return res.success({ data: resp.data });
   };
+
+  public deleteProduct = async (req: Request, res: CustomResponse): Promise<CustomResponse> => {
+    const productId = Number(req.query.id);
+    const resp: ServiceResponse = await this.productService.deleteProduct(productId);
+    if (!resp?.ok) return res.invalid({ code: 400, msg: resp.err });
+    return res.success({ data: resp.data });
+  };
 }
 
 export default ProductController;
