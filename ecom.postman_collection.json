@@ -1,9 +1,8 @@
 {
 	"info": {
-		"_postman_id": "5b4ef0d8-eb06-4c0b-8b76-ea2cf14bb46d",
+		"_postman_id": "844104f6-249d-403f-b178-71fa7e0ddbcf",
 		"name": "ecom",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "23686537"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
@@ -54,7 +53,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"id\": 14,\n    \"name\": \"new product 2\",\n    \"price\": 140,\n    \"variants\": [\n        {\n            \"id\": 3,\n            \"productId\": 14,\n            \"name\": \"product 2 variant 1\",\n            \"sku\": \"SKU-1\",\n            \"additionalCost\": 5,\n            \"stockCount\": 1\n        },\n        {\n            \"name\": \"product 2 new variant 1\",\n            \"sku\": \"SKU-30\",\n            \"additionalCost\": 60,\n            \"stockCount\": 4\n        }\n    ]\n}",
+					"raw": "{\n    \"id\": 2,\n    \"name\": \"new product 2\",\n    \"price\": 140,\n    \"variants\": [\n        {\n            \"id\": 2,\n            \"productId\": 1,\n            \"name\": \"product 2 variant 1\",\n            \"sku\": \"SKU-1\",\n            \"additionalCost\": 5,\n            \"stockCount\": 1\n        },\n        {\n            \"name\": \"product 2 new variant 1\",\n            \"sku\": \"SKU-30\",\n            \"additionalCost\": 60,\n            \"stockCount\": 4\n        }\n    ]\n}",
 					"options": {
 						"raw": {
 							"language": "json"

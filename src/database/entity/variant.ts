@@ -18,6 +18,12 @@ export class Variant extends BaseEntity {
   @Column({ name: 'stock_count' })
   stockCount: number;
 
+  @Column({ name: 'created_at' })
+  createdAt: Date;
+
+  @Column({ name: 'updated_at', nullable: true })
+  updatedAt: Date;
+
   @Column({ name: 'product_id' })
   productId: number;
 

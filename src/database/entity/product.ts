@@ -15,6 +15,12 @@ export class Product extends BaseEntity {
   @Column({ type: 'decimal', precision: 10, scale: 2 })
   price: number;
 
+  @Column({ name: 'created_at' })
+  createdAt: Date;
+
+  @Column({ name: 'updated_at', nullable: true })
+  updatedAt: Date;
+
   @OneToMany(() => Variant, variant => variant.product)
   variants: Variant[];
 }

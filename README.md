@@ -3,11 +3,12 @@
 Application Schema
 
 ```
-Product ( name, description, price )
-Variant ( name, sku, stock_count, additional_cost, product_id )
+Product ( name, description, price, created_at, updated_at )
+Variant ( name, sku, stock_count, additional_cost, product_id, created_at, updated_at )
 ```
 
 This application contains below APIS
+
 ```
 1. GET /api/v1/product?search=<>
     - gets list of products and their respective variants
@@ -28,14 +29,18 @@ This application contains below APIS
 ## Local project setup
 
 ### Database Setup
+
 1. install and configure MySQL server
 2. create a database
+
 ```
 create database ecom;
 ```
 
 ### Environment Variables
+
 create `.env` file in the root directory with the below content
+
 ```
 NODE_ENV=development
 PORT=4000

@@ -1,4 +1,5 @@
 import { DeepPartial } from 'typeorm';
+import { format } from 'date-fns';
 import { AppDataSource } from '@utils/typeorm';
 import { Product } from '@database/entity/product';
 import { Variant } from '@database/entity/variant';
@@ -26,12 +27,15 @@ export default class ProductModel {
   public async addProduct(product: DeepPartial<Product>, variants?: DeepPartial<Variant>[]) {
     try {
       const resp = await AppDataSource.transaction(async transManager => {
-        const savedProduct = await transManager.getRepository(Product).save(product);
+        const savedProduct = await transManager
+          .getRepository(Product)
+          .save({ ...product, createdAt: format(new Date(), 'yyyy-MM-dd HH:mm:ss') });
 
         if (variants?.length) {
           const variantRepo = transManager.getRepository(Variant);
           variants.forEach(variant => {
             variant.productId = savedProduct.id;
+            variant.createdAt = format(new Date(), 'yyyy-MM-dd HH:mm:ss');
           });
           const variantEntities = variantRepo.create(variants);
           const savedVariants = await variantRepo.save(variantEntities);
@@ -58,7 +62,7 @@ export default class ProductModel {
           .getRepository(Product)
           .createQueryBuilder('products')
           .update('products')
-          .set(productUpdateData)
+          .set({ ...productUpdateData, updatedAt: format(new Date(), 'yyyy-MM-dd HH:mm:ss') })
           .where({ id: productId })
           .execute();
 
@@ -70,20 +74,20 @@ export default class ProductModel {
             if (variantId) {
               delete variant.id;
               delete variant.productId;
-              const updatedVariant = await variantRepo
+              await variantRepo
                 .createQueryBuilder('variants')
                 .update('variants')
-                .set(variant)
+                .set({ ...variant, updatedAt: format(new Date(), 'yyyy-MM-dd HH:mm:ss') })
                 .where({ id: variantId })
                 .andWhere({ productId: productId })
                 .execute();
             } else {
-              newVariants.push({ ...variant, productId });
+              newVariants.push({ ...variant, productId, createdAt: format(new Date(), 'yyyy-MM-dd HH:mm:ss') });
             }
           }
 
           const variantEntities = variantRepo.create(newVariants);
-          const savedVariants = await variantRepo.save(variantEntities);
+          await variantRepo.save(variantEntities);
         }
 
         return updatedProduct;
